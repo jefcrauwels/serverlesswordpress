@@ -87,12 +87,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * etc
 
 
-
-
-
-
-
-
 /!\ The application has to be deployed in us-east-1 region /!\
 
 Requirements
