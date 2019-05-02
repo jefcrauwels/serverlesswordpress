@@ -12,12 +12,25 @@ Finally, this proof of concept allowed to determine the best practices and the r
 This project relies on several dependencies, mainly due to the Lambda custom runtime. Here is the list and a link to tutorials to install them:
 /!\ These installations are for windows only. Please find equivalents if you are not working on Windows. /!\
 
+PHP 7: 
 ```
-PHP 7: https://www.jeffgeerling.com/blog/2018/installing-php-7-and-composer-on-windows-10
-Composer: https://getcomposer.org/download/
-Docker: https://hub.docker.com/ (you need to create an account, and go to get started Docker Desktop)
-AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/install-windows.html#awscli-install-windows-path
-AWS SAM: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-windows.html 
+https://www.jeffgeerling.com/blog/2018/installing-php-7-and-composer-on-windows-10
+```
+Composer: 
+```
+https://getcomposer.org/download/
+```
+Docker: 
+```
+https://hub.docker.com/ (you need to create an account, and go to get started Docker Desktop)
+```
+AWS CLI: 
+```
+https://docs.aws.amazon.com/cli/latest/userguide/install-windows.html#awscli-install-windows-path
+```
+AWS SAM: 
+```
+https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-windows.html 
 ```
 /!\ AWS SAM requires Docker to be installed and run. Make sure you installed Docker prior to AWS SAM /!\
 
@@ -34,10 +47,18 @@ These instructions will get you a copy of the project up and running on your loc
 ## Dependencies
 
 /!\ Bref requires AWS CLI and AWS SAM to be installed. Make sure these tools are installed prior to Bref /!\
+
+Slim 3: 
 ```
-Slim 3: composer require slim/slim "^3.12"
-Guzzle and PSR 7:composer require guzzlehttp/guzzle:~6.0
-Bref: composer require mnapoli/bref
+composer require slim/slim "^3.12"
+```
+Guzzle and PSR 7:
+```
+composer require guzzlehttp/guzzle:~6.0
+```
+Bref: 
+```
+composer require mnapoli/bref
 ```
 
 Of course, because this project is meant to be deployed on AWS, you need an AWS account (https://aws.amazon.com/) and you need to configure your credentials (https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html).
@@ -50,7 +71,11 @@ TODO
 
 ```
 aws s3 mb s3://<bucket-name> (only done for initial deployment, not necessary anymore after)
+```
+```
 sam package --output-template-file .stack.yaml --s3-bucket <bucket-name>
+```
+```
 sam deploy --template-file .stack.yaml --capabilities CAPABILITY_IAM --stack-name <stack-name>
 ```
 
@@ -70,7 +95,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 * Mathieu Napoli (mnapoli) - His Bref package really simplified my work.
 * Hidde Westra and Michiel Bakker - My mentors that gave me great advice/tips.
-* The WordPress community - For its great documentation.
+* The WordPress community - For the amazing documentation.
 
 ## TO DO
 * Create Ansible file to automate the application's installation.
