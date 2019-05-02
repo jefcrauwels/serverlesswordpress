@@ -25,6 +25,9 @@ wheels/
 *.egg
 MANIFEST
 vendor/
+composer.json
+composer.lock
+.stack.yaml
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
