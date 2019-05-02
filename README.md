@@ -1,120 +1,78 @@
 # Serverless WordPress
 
-One Paragraph of project description goes here
+This project is the proof of concept of my master thesis on Serverless Computing. 
+The goal of this project is to run WordPress in a serverless environment (on AWS using API Gateway and AWS Lambda). Migrating a monolithic application to serverless implies cutting it into services and implementing them using serverless technologies.
+
+As WordPress is a complex and tightly coupled application, it was difficult to determine the service boundaries. Because migrating monolithic to microservices is beyond the scope of this research, the author decided to only migrate one capability to serverless: Formatting. However, this process shows that it is possible to run WordPress in a serverless environment, it just requires a lot of time and understanding of the legacy application.
+
+Finally, this proof of concept allowed to determine the best practices and the requirements to migrate a monolithic application to a serverless environment.
+
+### Prerequisites
+
+This project relies on several dependencies, mainly due to the Lambda custom runtime. Here is the list and a link to tutorials to install them:
+/!\ These installations are for windows only. Please find equivalents if you are not working on Windows. /!\
+
+```
+PHP 7: https://www.jeffgeerling.com/blog/2018/installing-php-7-and-composer-on-windows-10
+Composer: https://getcomposer.org/download/
+Docker: https://hub.docker.com/ (you need to create an account, and go to get started Docker Desktop)
+AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/install-windows.html#awscli-install-windows-path
+AWS SAM: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-windows.html 
+```
+/!\ AWS SAM requires Docker to be installed and run. Make sure you installed Docker prior to AWS SAM /!\
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
+1. Install & Configure WordPress (https://codex.wordpress.org/Installing_WordPress)
+2. Clone the project
+3. Replace the wordpress/wp-includes/general-template.php file by the general-template.php from the cloned project.
+4. Delete the general-template.php file in the cloned project.
+5. Install dependencies
 
-What things you need to install the software and how to install them
+## Dependencies
 
+/!\ Bref requires AWS CLI and AWS SAM to be installed. Make sure these tools are installed prior to Bref /!\
 ```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
+Slim 3: composer require slim/slim "^3.12"
+Guzzle and PSR 7:composer require guzzlehttp/guzzle:~6.0
+Bref: composer require mnapoli/bref
 ```
 
-And repeat
+Of course, because this project is meant to be deployed on AWS, you need an AWS account (https://aws.amazon.com/) and you need to configure your credentials (https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html).
+By default, Bref deploys the application in the AWS Region us-east-1 (North Virginia, USA). If you are a first time user, using the us-east-1 region (the default region) is highly recommended for the first projects. It simplifies commands and avoids a lot of mistakes when discovering AWS. 
 
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+## Run locally
+TODO
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+```
+aws s3 mb s3://<bucket-name> (only done for initial deployment, not necessary anymore after)
+sam package --output-template-file .stack.yaml --s3-bucket <bucket-name>
+sam deploy --template-file .stack.yaml --capabilities CAPABILITY_IAM --stack-name <stack-name>
+```
 
-## Built With
+Make sure to replace <stack_name> and <bucket-name>
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+## Author
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Jef Crauwels** 
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Mathieu Napoli (mnapoli) - His Bref package really simplified my work.
+* Hidde Westra and Michiel Bakker - My mentors that gave me great advice/tips.
+* The WordPress community - For its great documentation.
 
-
-/!\ The application has to be deployed in us-east-1 region /!\
-
-Requirements
-	PHP 7
-	Composer
-	Docker
-	AWS CLI
-	AWS SAM
-	npm
-
-Prerequisites
-	Set AWS access key and secret key
-
-Create project file with dependencies
-
-	composer require mnapoli/bref
-	composer require guzzlehttp/guzzle:~6.0
-	composer require slim/slim "^3.12"
-	npm i -g serverless
-
-Copy index.php and template.yaml at root of the project
-
-Deploy application
-	aws s3 mb s3://<bucket-name> (only done for initial deployment, not necessary anymore after)
-	sam package --output-template-file .stack.yaml --s3-bucket <bucket-name>
-	sam deploy --template-file .stack.yaml --capabilities CAPABILITY_IAM --stack-name <stack-name>
-
-Make sure to replace <stack_name> and <bucket-name>
-
-TODO
-Create Ansible file to automate the application's installation
+## TO DO
+* Create Ansible file to automate the application's installation.
+* Use the serverless formatting in the entire WordPress application and not only in the general-template.php file.
+* Build more serverless services (Authentification for example).
