@@ -7,7 +7,7 @@ As WordPress is a complex and tightly coupled application, it was difficult to d
 
 Finally, this proof of concept allowed to determine the best practices and the requirements to migrate a monolithic application to a serverless environment.
 
-### Prerequisites
+## Prerequisites
 
 This project relies on several dependencies, mainly due to the Lambda custom runtime. Here is the list and a link to tutorials to install them:
 /!\ These installations are for windows only. Please find equivalents if you are not working on Windows. /!\
