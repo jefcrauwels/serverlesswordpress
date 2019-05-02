@@ -7,7 +7,7 @@ Resources:
     Properties:
       FunctionName: wptexturize
       Description: ''
-      CodeUri: s3://bref-bucket/5bdbc847b8109a57be367130efbd5917
+      CodeUri: s3://bref-bucket/e088cc8263f1ad8467b62c61dd54a63f
       Handler: index.php
       Timeout: 30
       MemorySize: 1024

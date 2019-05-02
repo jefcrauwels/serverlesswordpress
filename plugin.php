@@ -208,7 +208,7 @@ function apply_filters( $tag, $value ) {
 	$filtered = $wp_filter[ $tag ]->apply_filters( $value, $args );
 
 	array_pop( $wp_current_filter );
-
+	
 	return $filtered;
 }
 
