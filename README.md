@@ -12,26 +12,12 @@ Finally, this proof of concept allowed to determine the best practices and the r
 This project relies on several dependencies, mainly due to the Lambda custom runtime. Here is the list and a link to tutorials to install them:
 /!\ These installations are for windows only. Please find equivalents if you are not working on Windows. /!\
 
-PHP 7: 
-```
-https://www.jeffgeerling.com/blog/2018/installing-php-7-and-composer-on-windows-10
-```
-Composer: 
-```
-https://getcomposer.org/download/
-```
-Docker: 
-```
-https://hub.docker.com/ (you need to create an account, and go to get started Docker Desktop)
-```
-AWS CLI: 
-```
-https://docs.aws.amazon.com/cli/latest/userguide/install-windows.html#awscli-install-windows-path
-```
-AWS SAM: 
-```
-https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-windows.html 
-```
+* PHP 7: https://www.jeffgeerling.com/blog/2018/installing-php-7-and-composer-on-windows-10
+* Composer: https://getcomposer.org/download/
+* Docker: https://hub.docker.com/ (you need to create an account, and go to get started Docker Desktop)
+* AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/install-windows.html#awscli-install-windows-path
+* AWS SAM: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-windows.html 
+
 /!\ AWS SAM requires Docker to be installed and run. Make sure you installed Docker prior to AWS SAM /!\
 
 ## Getting Started
@@ -97,7 +83,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Hidde Westra and Michiel Bakker - My mentors that gave me great advice/tips.
 * The WordPress community - For the amazing documentation.
 
-## TO DO
+## Improvements
 * Create Ansible file to automate the application's installation.
 * Use the serverless formatting in the entire WordPress application and not only in the general-template.php file.
 * Build more serverless services (Authentification for example).
