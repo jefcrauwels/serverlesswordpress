@@ -26,9 +26,10 @@ These instructions will get you a copy of the project up and running on your loc
 
 1. Install & Configure WordPress (https://codex.wordpress.org/Installing_WordPress)
 2. Clone the project
-3. Replace the wordpress/wp-includes/general-template.php file by the general-template.php from the cloned project.
+3. Replace the wordpress/wp-includes/general-template.php file by the general-template.php from the cloned project (in Files to move to WordPress folder).
 4. Delete the general-template.php file in the cloned project.
-5. Install dependencies
+5. Same for the serverless-functions.php file.
+6. Install dependencies
 
 ## Dependencies
 
@@ -87,3 +88,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Create Ansible file to automate the application's installation.
 * Use the serverless formatting in the entire WordPress application and not only in the general-template.php file.
 * Build more serverless services (Authentification for example).
+* Explain the modifications in general-template
+* Explain purpose of serverless-functions.php file
+* Explain index.php and template.yaml file
+* Make license

@@ -8,8 +8,8 @@
  */
   
 declare(strict_types=1);
-require_once( dirname( __FILE__ ) . '/l10n.php' );
-require_once( dirname( __FILE__ ) . '/plugin.php' );
+require_once( dirname( __FILE__ ) . '/serv-wp-includes/l10n.php' );
+require_once( dirname( __FILE__ ) . '/serv-wp-includes/plugin.php' );
 require __DIR__.'/vendor/autoload.php';
 
 /**
