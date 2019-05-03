@@ -17,19 +17,21 @@ This project relies on several dependencies, mainly due to the Lambda custom run
 * Docker: https://hub.docker.com/ (you need to create an account, and go to get started Docker Desktop)
 * AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/install-windows.html#awscli-install-windows-path
 * AWS SAM: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-windows.html 
+* WAMP (or equivalent) to run the WordPress website : https://sourceforge.net/projects/wampserver/
 
-/!\ AWS SAM requires Docker to be installed and run. Make sure you installed Docker prior to AWS SAM /!\
+/!\ AWS SAM requires Docker to be installed and run. Make sure you installed Docker prior to AWS SAM. /!\
+/!\ WordPress requires a MySQL managed database (that's why I like to use WAMP). /!\
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-1. Install & Configure WordPress (https://codex.wordpress.org/Installing_WordPress)
-2. Clone the project
-3. Replace the wordpress/wp-includes/general-template.php file by the general-template.php from the cloned project (in Files to move to WordPress folder).
+1. Install & Configure WordPress (https://codex.wordpress.org/Installing_WordPress). If you are using WAMP, you have to put your WordPress project in the WAMP directory (if you followed the recommended WAMP installation, it should be in C:\wamp64\www). If you are not used to WAMP, please have a look at https://www.makeuseof.com/tag/how-to-set-up-your-own-wampserver/. It explains how to install a local WordPress website using WAMP.
+2. Clone the serverlesswordpress project from github (this project does not have to be in the WAMP directory).
+3. Replace the C:\wamp64\www\<ProjectName>/wp-includes/general-template.php file with the general-template.php from the cloned serverlesswordpress project (in Files to move to WordPress folder).
 4. Delete the general-template.php file in the cloned project.
-5. Same for the serverless-functions.php file.
-6. Install dependencies
+5. Same for the serverless-functions.php file. This file contains the API Call to the API Gateway. It is in this file that you will have to put your own API Gateway URL.
+6. Install dependencies.
 
 ## Dependencies
 
@@ -52,7 +54,12 @@ Of course, because this project is meant to be deployed on AWS, you need an AWS 
 By default, Bref deploys the application in the AWS Region us-east-1 (North Virginia, USA). If you are a first time user, using the us-east-1 region (the default region) is highly recommended for the first projects. It simplifies commands and avoids a lot of mistakes when discovering AWS. 
 
 ## Run locally
-TODO
+
+In the file serverless-functions.php that you moved to your WordPress project in wp-includes, change the API URL by ```'http://127.0.0.1:3000/Prod?title=' ```.
+The ```sam local start-api``` command starts Docker containers that will emulate AWS Lambda and API Gateway on your machine.
+Once started, your application will be available at http://localhost:3000.
+Start your WordPress website (Open browser and browse http://localhost/<ProjectName>). Make sure your WAMP server is running.
+You should land on the home page of your WordPress website. The formatting of the titles is done by a Lambda function and not by the WordPress application.
 
 ## Deployment
 
@@ -67,6 +74,17 @@ sam deploy --template-file .stack.yaml --capabilities CAPABILITY_IAM --stack-nam
 ```
 
 Make sure to replace <stack_name> and <bucket-name>
+
+1. Log into your AWS account and go to the API Gateway page. You will see a Gateway named wptexturize. 
+2. Click on it and go to the Stages section. 
+3. Click on Prod, and on the displayed page you will see the Invoke URL (should look like  https://XXXXXXXXXX.execute-api.us-east-1.amazonaws.com/Prod). 
+4. Copy this URL and paste it in the C:\wamp64\www\<ProjectName>/wp-includes/serverless-functions.php file where <YourAPIGatewayURL> is.
+5. Save all your files.
+6. Launch your WordPress website (Open browser and browse http://localhost/<ProjectName>). Make sure your WAMP server is running.
+7. In your AWS account go to CloudWatch, Logs, /aws/lambda/wptexturize.
+8. Click on the latest log. 
+9. You can see that you Lambda Function responsible to format the titles and the archive links of your WordPress website has been used (you might have to wait a minute before the logs appear).
+10. You can also go to Lambda and API Gateway pages to see the calls.
 
 ## Author
 
@@ -85,6 +103,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * The WordPress community - For the amazing documentation.
 
 ## Improvements
+
 * Create Ansible file to automate the application's installation.
 * Use the serverless formatting in the entire WordPress application and not only in the general-template.php file.
 * Build more serverless services (Authentification for example).
