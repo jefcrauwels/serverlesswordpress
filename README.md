@@ -28,7 +28,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 1. Install & Configure WordPress (https://codex.wordpress.org/Installing_WordPress). If you are using WAMP, you have to put your WordPress project in the WAMP directory (if you followed the recommended WAMP installation, it should be in C:\wamp64\www). If you are not used to WAMP, please have a look at https://www.makeuseof.com/tag/how-to-set-up-your-own-wampserver/. It explains how to install a local WordPress website using WAMP.
 2. Clone the serverlesswordpress project from github (this project does not have to be in the WAMP directory).
-3. Replace the C:\wamp64\www\<ProjectName>/wp-includes/general-template.php file with the general-template.php from the cloned serverlesswordpress project (in Files to move to WordPress folder).
+3. Replace the C:\wamp64\www\<WordPressProjectName>/wp-includes/general-template.php file with the general-template.php from the cloned serverlesswordpress project (in Files to move to WordPress folder).
 4. Delete the general-template.php file in the cloned project.
 5. Same for the serverless-functions.php file. This file contains the API Call to the API Gateway. It is in this file that you will have to put your own API Gateway URL.
 6. Install dependencies.
@@ -37,18 +37,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 /!\ Bref requires AWS CLI and AWS SAM to be installed. Make sure these tools are installed prior to Bref /!\
 
-Slim 3: 
-```
-composer require slim/slim "^3.12"
-```
-Guzzle and PSR 7:
-```
-composer require guzzlehttp/guzzle:~6.0
-```
-Bref: 
-```
-composer require mnapoli/bref
-```
+Run the following commands using the CLI in your serverlesswordpress directory:  
+Slim 3: ```composer require slim/slim "^3.12"```
+Bref: ```composer require mnapoli/bref```
+
+Run the following command using the CLI in your WordPressProject directory:
+Guzzle and PSR 7:```composer require guzzlehttp/guzzle:~6.0```
 
 Of course, because this project is meant to be deployed on AWS, you need an AWS account (https://aws.amazon.com/) and you need to configure your credentials (https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html).
 By default, Bref deploys the application in the AWS Region us-east-1 (North Virginia, USA). If you are a first time user, using the us-east-1 region (the default region) is highly recommended for the first projects. It simplifies commands and avoids a lot of mistakes when discovering AWS. 
@@ -58,7 +52,7 @@ By default, Bref deploys the application in the AWS Region us-east-1 (North Virg
 In the file serverless-functions.php that you moved to your WordPress project in wp-includes, change the API URL by ```'http://127.0.0.1:3000/Prod?title=' ```.
 The ```sam local start-api``` command starts Docker containers that will emulate AWS Lambda and API Gateway on your machine.
 Once started, your application will be available at http://localhost:3000.
-Start your WordPress website (Open browser and browse http://localhost/<ProjectName>). Make sure your WAMP server is running.
+Start your WordPress website (Open browser and browse http://localhost/WordPressProjectName). Make sure your WAMP server is running.
 You should land on the home page of your WordPress website. The formatting of the titles is done by a Lambda function and not by the WordPress application.
 
 ## Deployment
@@ -78,9 +72,9 @@ Make sure to replace <stack_name> and <bucket-name>
 1. Log into your AWS account and go to the API Gateway page. You will see a Gateway named wptexturize. 
 2. Click on it and go to the Stages section. 
 3. Click on Prod, and on the displayed page you will see the Invoke URL (should look like  https://XXXXXXXXXX.execute-api.us-east-1.amazonaws.com/Prod). 
-4. Copy this URL and paste it in the C:\wamp64\www\<ProjectName>/wp-includes/serverless-functions.php file where <YourAPIGatewayURL> is.
+4. Copy this URL and paste it in the C:\wamp64\www\<WordPressProjectName>/wp-includes/serverless-functions.php file where <YourAPIGatewayURL> is.
 5. Save all your files.
-6. Launch your WordPress website (Open browser and browse http://localhost/<ProjectName>). Make sure your WAMP server is running.
+6. Launch your WordPress website (Open browser and browse http://localhost/WordPressProjectName). Make sure your WAMP server is running.
 7. In your AWS account go to CloudWatch, Logs, /aws/lambda/wptexturize.
 8. Click on the latest log. 
 9. You can see that you Lambda Function responsible to format the titles and the archive links of your WordPress website has been used (you might have to wait a minute before the logs appear).
