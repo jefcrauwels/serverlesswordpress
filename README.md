@@ -3,7 +3,7 @@
 This project is the proof of concept of my master thesis on Serverless Computing. 
 The goal of this project is to run WordPress in a serverless environment (on AWS using API Gateway and AWS Lambda). Migrating a monolithic application to serverless implies cutting it into services and implementing them using serverless technologies.
 
-As WordPress is a complex and tightly coupled application, it was difficult to determine the service boundaries. Because migrating monolithic to microservices is beyond the scope of this research, the author decided to only migrate one capability to serverless: Formatting. However, this process shows that it is possible to run WordPress in a serverless environment, it just requires a lot of time and understanding of the legacy application.
+As WordPress is a complex and tightly coupled application, it was difficult to determine the service boundaries. Because migrating monolithic to microservices is beyond the scope of this research, the author decided to only migrate one capability to serverless: Formatting (please refer to [CCC.md](CoreCodeChanges.md) if you want a deeper understanding at what has been changed to the core WordPress code). However, this process shows that it is possible to run WordPress in a serverless environment, it just requires a lot of time and understanding of the legacy application.
 
 Finally, this proof of concept allowed to determine the best practices and the requirements to migrate a monolithic application to a serverless environment.
 
@@ -24,7 +24,8 @@ This project relies on several dependencies, mainly due to the Lambda custom run
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system. 
+At the end of this section you should have 2 folders: serverlesswordpress where the Lambda function is and your WordPressProject where your WordPress files are.
 
 1. Install & Configure WordPress (https://codex.wordpress.org/Installing_WordPress). If you are using WAMP, you have to put your WordPress project in the WAMP directory (if you followed the recommended WAMP installation, it should be in C:\wamp64\www). If you are not used to WAMP, please have a look at https://www.makeuseof.com/tag/how-to-set-up-your-own-wampserver/. It explains how to install a local WordPress website using WAMP.
 2. Clone the serverlesswordpress project from github (this project does not have to be in the WAMP directory).
@@ -38,25 +39,27 @@ These instructions will get you a copy of the project up and running on your loc
 /!\ Bref requires AWS CLI and AWS SAM to be installed. Make sure these tools are installed prior to Bref /!\
 
 Run the following commands using the CLI in your serverlesswordpress directory:  
-Slim 3: ```composer require slim/slim "^3.12"```
-Bref: ```composer require mnapoli/bref```
+* Slim 3: ```composer require slim/slim "^3.12"```
+* Bref: ```composer require mnapoli/bref```
 
 Run the following command using the CLI in your WordPressProject directory:
-Guzzle and PSR 7:```composer require guzzlehttp/guzzle:~6.0```
+* Guzzle and PSR 7:```composer require guzzlehttp/guzzle:~6.0```
 
 Of course, because this project is meant to be deployed on AWS, you need an AWS account (https://aws.amazon.com/) and you need to configure your credentials (https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html).
 By default, Bref deploys the application in the AWS Region us-east-1 (North Virginia, USA). If you are a first time user, using the us-east-1 region (the default region) is highly recommended for the first projects. It simplifies commands and avoids a lot of mistakes when discovering AWS. 
 
 ## Run locally
 
-In the file serverless-functions.php that you moved to your WordPress project in wp-includes, change the API URL by ```'http://127.0.0.1:3000/Prod?title=' ```.
+Change the API URL by ```'http://127.0.0.1:3000' ``` in the C:\wamp64\www\<WordPressProjectName>/wp-includes/serverless-functions.php file.
 The ```sam local start-api``` command starts Docker containers that will emulate AWS Lambda and API Gateway on your machine.
 Once started, your application will be available at http://localhost:3000.
 Start your WordPress website (Open browser and browse http://localhost/WordPressProjectName). Make sure your WAMP server is running.
-You should land on the home page of your WordPress website. The formatting of the titles is done by a Lambda function and not by the WordPress application.
+You should land on the home page of your WordPress website. The formatting of the titles and the archive links is done by a Lambda function and not by the WordPress application anymore.
 
 ## Deployment
 
+If you want a full understanding on how this deployment works, please refer to this website https://bref.sh/docs/deploy.html
+To deploy the application on AWS type the following commands in the serverlesswordpress directory:
 ```
 aws s3 mb s3://<bucket-name> (only done for initial deployment, not necessary anymore after)
 ```
@@ -101,7 +104,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Create Ansible file to automate the application's installation.
 * Use the serverless formatting in the entire WordPress application and not only in the general-template.php file.
 * Build more serverless services (Authentification for example).
-* Explain the modifications in general-template
-* Explain purpose of serverless-functions.php file
-* Explain index.php and template.yaml file
 * Make license
