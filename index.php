@@ -69,9 +69,6 @@ $slim->get('/', function (ServerRequestInterface $request, ResponseInterface $re
     return $response;
 });
 
-$slim->post('/{shortcode}', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
-	$shortcode_tags = $args['shortcode'];
-});
 $slim->run();
  
 function wptexturize( $text, $reset = false ) {
