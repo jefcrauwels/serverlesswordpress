@@ -62,13 +62,15 @@ use Bref\Application;
 $slim = new Slim\App;
 $slim->get('/', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
 	$params = $request->getQueryParams();
-	$title = $params['title'];
-	$filtered = wptexturize($title);
-    $response->getBody()->write(json_encode(['filtered' => $filtered]));
+	$totexturize = $params['totexturize'];
+	$texturized = wptexturize($totexturize);
+    $response->getBody()->write(json_encode(['texturized' => $texturized]));
     $response = $response->withHeader('Content-Type', 'application/json');
     return $response;
 });
-
+/*$app = new \Bref\Application;
+$app->httpHandler(new SlimAdapter($slim));
+$app->run();*/
 $slim->run();
  
 function wptexturize( $text, $reset = false ) {

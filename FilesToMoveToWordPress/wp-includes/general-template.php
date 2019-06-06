@@ -1,6 +1,6 @@
 <?php
 
-require( dirname( __FILE__ ) . '/serverless-functions.php' );
+require_once( dirname( __FILE__, 2 ) . '/serverless-functions.php' );
 
 /**
  * General template tags that can go anywhere in a template.
@@ -1089,6 +1089,7 @@ function wp_get_document_title() {
 	$title = convert_chars( $title );
 	$title = esc_html( $title );
 	$title = capital_P_dangit( $title );
+	debug_to_console( "Test" );
 	
 	return $title;
 }
