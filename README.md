@@ -30,15 +30,6 @@ At the end of this section you should have 2 folders: **serverlesswordpress** wh
 
 1. **Install & Configure WordPress** (https://codex.wordpress.org/Installing_WordPress). If you are using WAMP, you have to put your WordPress project in the WAMP directory (if you followed the recommended WAMP installation, it should be in C:\wamp64\www). If you are not used to WAMP, please have a look at https://www.makeuseof.com/tag/how-to-set-up-your-own-wampserver/. It explains how to install a local WordPress website using WAMP.
 2. **Clone the serverlesswordpress** project from github (this project does not have to be in the WAMP directory).
-
-#OPTION 1: Move file by file
-3. Copy the **general-template.php** file located in **serverlesswordpress/FilesToMoveToWordPress/wp-includes/**
-4. Paste the **general-template.php** file to the **wp-includes** folder in your **WordPress** project. 
-5. Click "Replace the file in destination folder". This way your **WordPress** will call the Lambda function instead of the legacy function.
-6. Do the same with all the files present in the **FilesToMoveToWordPress** folder (plugin.php, menu-header.php...).
-/!\ Please respect the the file hierarchy in. The files should be moved to the correct **WordPress** folders otherwise there will be errors./!\
-
-#OPTION 2: Move the entire folder
 3. In the **serverlesswordpress** project, open the **FilesToMoveToWordPress** folder.
 4. Copy all the content (files and folders).
 5. Open your **WordPress** project.
