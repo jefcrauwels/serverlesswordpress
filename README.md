@@ -105,5 +105,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Improvements
 
 * Create Ansible file to automate the application's installation.
-* Use the serverless formatting in the entire WordPress application and not only in the general-template.php file.
 * Build more serverless services (Authentification for example).
