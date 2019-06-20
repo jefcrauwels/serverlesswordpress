@@ -34,7 +34,6 @@ At the end of this section you should have 2 folders: **serverlesswordpress** wh
 4. Copy all the content (files and folders).
 5. Open your **WordPress** project.
 7. Paste and accept the "Replace file in destination folder". Thanks to this action, your **WordPress** will call the Lambda function instead of the legacy function.
-
 8. **Install dependencies.**
 
 ## Dependencies
